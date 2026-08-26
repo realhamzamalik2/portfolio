@@ -1,0 +1,952 @@
+<title>Hamza Malik</title>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400..700&display=swap');
+
+  /* ---------- tokens ---------- */
+  :root{
+    --bg:#0A0A0D;
+    --bg-elevated:#17151B;
+    --bg-sunken:#050406;
+    --text:#F4F3F0;
+    --text-muted:#AFACB2;
+    --text-faint:#6B6870;
+    --border:#262330;
+    --accent:#B9D94C;
+    --accent-fill:#B9D94C;
+    --accent-ink:#14210A;
+    --accent-soft:rgba(185,217,76,.12);
+    --pink:#E280A3;
+    --pink-fill:#D9678F;
+    --pink-ink:#2B0B16;
+    --pink-soft:rgba(217,103,143,.14);
+    --shadow: 0 1px 2px rgba(0,0,0,.6), 0 24px 54px -20px rgba(0,0,0,.85);
+    --radius-s:8px;
+    --radius-m:20px;
+    --radius-l:28px;
+    --font-display:'Bricolage Grotesque', 'Arial Black', sans-serif;
+    --font-body:'Instrument Sans', -apple-system, 'Segoe UI', sans-serif;
+    --font-mono:'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0A0A0D; --bg-elevated:#17151B; --bg-sunken:#050406;
+      --text:#F4F3F0; --text-muted:#AFACB2; --text-faint:#6B6870;
+      --border:#262330;
+      --accent:#B9D94C; --accent-fill:#B9D94C; --accent-ink:#14210A; --accent-soft:rgba(185,217,76,.12);
+      --pink:#E280A3; --pink-fill:#D9678F; --pink-ink:#2B0B16; --pink-soft:rgba(217,103,143,.14);
+      --shadow: 0 1px 2px rgba(0,0,0,.6), 0 24px 54px -20px rgba(0,0,0,.85);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0A0A0D; --bg-elevated:#17151B; --bg-sunken:#050406;
+    --text:#F4F3F0; --text-muted:#AFACB2; --text-faint:#6B6870;
+    --border:#262330;
+    --accent:#B9D94C; --accent-fill:#B9D94C; --accent-ink:#14210A; --accent-soft:rgba(185,217,76,.12);
+    --pink:#E280A3; --pink-fill:#D9678F; --pink-ink:#2B0B16; --pink-soft:rgba(217,103,143,.14);
+    --shadow: 0 1px 2px rgba(0,0,0,.6), 0 24px 54px -20px rgba(0,0,0,.85);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--text); font-family:var(--font-body);
+    font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit;}
+  ::selection{background:var(--accent-fill); color:var(--accent-ink);}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;} }
+
+  h1,h2,h3{font-family:var(--font-display); text-wrap:balance; letter-spacing:-0.01em;}
+  .eyebrow{
+    font-family:var(--font-mono); font-size:13px; letter-spacing:.06em; color:var(--text-muted);
+    display:inline-flex; align-items:center; gap:8px; background:var(--bg-elevated);
+    border:1px solid var(--border); padding:7px 14px 7px 10px; border-radius:999px;
+    transform:rotate(-1.5deg); box-shadow:var(--shadow);
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+
+  /* ---------- floating blobs ---------- */
+  .blob{position:absolute; border-radius:50%; filter:blur(70px); opacity:.5; pointer-events:none; z-index:0;}
+  @keyframes float1{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(30px,-24px) scale(1.08);} }
+  @keyframes float2{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-26px,26px) scale(.95);} }
+
+  /* ---------- nav ---------- */
+  nav.site{ position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--bg) 80%, transparent);
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+  nav.site .wrap{display:flex; align-items:center; justify-content:space-between; height:70px;}
+  .logo{font-family:var(--font-display); font-weight:800; font-size:21px; text-decoration:none; display:inline-block;}
+  .logo span{color:var(--pink);}
+  .nav-links{display:flex; gap:26px; list-style:none; font-size:14px; font-weight:600;}
+  .nav-links a{text-decoration:none; color:var(--text-muted); transition:color .18s ease;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{ font-family:var(--font-mono); font-size:12.5px; background:var(--text); color:var(--bg);
+    padding:10px 18px; border-radius:999px; text-decoration:none; font-weight:700; white-space:nowrap;
+    transition:transform .18s ease; display:inline-block; }
+  .nav-cta:hover{transform:rotate(-2deg) scale(1.04);}
+  @media (max-width:780px){ .nav-links{display:none;} }
+
+  /* ---------- hero ---------- */
+  #hero{position:relative; padding:70px 0 60px; overflow:hidden;}
+  .hero-grid{ position:relative; z-index:1; display:grid; grid-template-columns:1.05fr .95fr; gap:40px; align-items:center; }
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
+
+  .hero-head .eyebrow{margin-bottom:24px;}
+  h1.headline{ font-size:clamp(38px, 5.6vw, 68px); font-weight:800; line-height:1.03; letter-spacing:-0.02em; }
+  h1.headline em{ font-style:normal; color:var(--pink); }
+  .hero-sub{ margin-top:22px; max-width:48ch; font-size:17px; color:var(--text-muted); }
+  .hero-actions{display:flex; gap:14px; margin-top:30px; flex-wrap:wrap;}
+  .btn{ font-family:var(--font-body); font-weight:700; font-size:15px; text-decoration:none;
+    padding:14px 26px; border-radius:999px; display:inline-flex; align-items:center; gap:8px;
+    transition:transform .18s ease, box-shadow .18s ease; }
+  .btn-solid{background:var(--accent-fill); color:var(--accent-ink); box-shadow:var(--shadow);}
+  .btn-solid:hover{transform:translateY(-3px) rotate(-1deg);}
+  .btn-ghost{border:2px solid var(--text); color:var(--text); background:transparent;}
+  .btn-ghost:hover{transform:translateY(-3px) rotate(1deg); background:var(--bg-elevated);}
+
+  .chip-row{display:flex; gap:10px; margin-top:28px; flex-wrap:wrap;}
+  .chip{ font-family:var(--font-mono); font-size:12px; font-weight:600; padding:7px 13px; border-radius:999px;
+    border:1.5px solid var(--border); background:var(--bg-elevated); color:var(--text-muted); cursor:default;
+    transition:background .18s ease, box-shadow .18s ease; }
+  .chip:nth-child(1){transform:rotate(-2deg);}
+  .chip:nth-child(2){transform:rotate(1.5deg); border-color:var(--pink-fill); color:var(--pink);}
+  .chip:nth-child(3){transform:rotate(-1deg); border-color:var(--accent-fill); color:var(--accent);}
+  .chip:hover{ background:var(--bg-sunken); box-shadow:var(--shadow); }
+  .chip:nth-child(2):hover{ background:var(--pink-soft); }
+  .chip:nth-child(3):hover{ background:var(--accent-soft); }
+
+  /* ---------- photo cluster ---------- */
+  .photo-cluster{ position:relative; width:100%; max-width:440px; aspect-ratio:1/1.02; margin:0 auto; }
+  .pcard{ position:absolute; border-radius:var(--radius-m); overflow:hidden; border:7px solid var(--bg-elevated);
+    box-shadow:var(--shadow);
+    transition:left .55s cubic-bezier(.22,1,.36,1), top .55s cubic-bezier(.22,1,.36,1),
+      width .55s cubic-bezier(.22,1,.36,1), height .55s cubic-bezier(.22,1,.36,1),
+      transform .55s cubic-bezier(.22,1,.36,1), box-shadow .25s ease, filter .2s ease; }
+  .pcard .fill{ position:absolute; inset:0; overflow:hidden; }
+  .pcard .fill img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; image-rendering:auto; }
+  .pcard .fill span{ position:absolute; bottom:10px; right:10px; font-family:var(--font-mono); font-size:9.5px; letter-spacing:.06em;
+    background:rgba(0,0,0,.55); color:#fff; padding:4px 8px; border-radius:5px; z-index:2; }
+  .pcard .zoom{ position:absolute; inset:-6%; animation:kenburns 9s ease-in-out infinite alternate; }
+  @keyframes kenburns{ from{transform:scale(1);} to{transform:scale(1.08);} }
+
+  .p1{ left:30%; top:12%; width:70%; height:88%; transform:rotate(-4deg); z-index:3; }
+  .p1 .fill{background:linear-gradient(150deg, var(--accent-soft), var(--bg-sunken)); color:var(--accent);}
+  .p2{ left:2%; top:2%; width:52%; height:52%; transform:rotate(7deg); z-index:2; cursor:pointer; }
+  .p2 .fill{background:linear-gradient(150deg, var(--pink-soft), var(--bg-sunken)); color:var(--pink);}
+  .p3{ left:20%; top:52%; width:40%; height:50%; transform:rotate(-11deg); z-index:1; cursor:pointer; }
+  .p3 .fill{background:var(--bg-sunken); color:var(--text-faint);}
+  .p2:hover, .p3:hover{ filter:brightness(1.05); }
+
+  .scan{position:absolute; inset:0; z-index:4; pointer-events:none;}
+  .scan .corner{position:absolute; width:22px; height:22px; border:2.5px solid var(--accent-fill); opacity:.9;}
+  .scan .c1{top:10px; left:10px; border-right:none; border-bottom:none;}
+  .scan .c2{top:10px; right:10px; border-left:none; border-bottom:none;}
+  .scan .c3{bottom:10px; left:10px; border-right:none; border-top:none;}
+  .scan .c4{bottom:10px; right:10px; border-left:none; border-top:none;}
+  .scan .line{position:absolute; left:8%; right:8%; height:2px; background:var(--accent-fill); box-shadow:0 0 12px 2px var(--accent-fill);
+    animation:scanmove 2.6s ease-in-out infinite;}
+  @keyframes scanmove{ 0%{top:12%;} 50%{top:84%;} 100%{top:12%;} }
+  .scan .tag{ position:absolute; bottom:14px; left:14px; font-family:var(--font-mono); font-size:9.5px; letter-spacing:.05em;
+    background:rgba(0,0,0,.55); color:#fff; padding:4px 8px; border-radius:5px; animation:pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:.65;} 50%{opacity:1;} }
+
+  /* ---------- marquee band ---------- */
+  .band-wrap{overflow:hidden; margin:56px 0; transform:rotate(-1.1deg); }
+  .band{ background:var(--text); color:var(--bg); padding:14px 0; overflow:hidden; }
+  .band .marquee-track{ display:flex; gap:0; width:max-content; animation:scroll 26s linear infinite; }
+  .band .marquee-track span{ font-family:var(--font-mono); font-weight:700; font-size:16px; letter-spacing:.03em;
+    white-space:nowrap; padding:0 22px; text-transform:uppercase; }
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  .band:hover .marquee-track{animation-play-state:paused;}
+
+  /* ---------- candid strip ---------- */
+  #candid{padding:10px 0 90px;}
+  .candid-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; max-width:920px;}
+  @media (max-width:820px){ .candid-grid{grid-template-columns:1fr 1fr; max-width:640px;} }
+  @media (max-width:600px){ .candid-grid{grid-template-columns:1fr;} }
+  .candid-card{ border-radius:var(--radius-m); aspect-ratio:4/5; overflow:hidden; border:7px solid var(--bg-elevated);
+    box-shadow:var(--shadow); position:relative; }
+  .candid-card:nth-child(1){transform:rotate(2.5deg);}
+  .candid-card:nth-child(2){transform:rotate(-3deg);}
+  .candid-card:nth-child(3){transform:rotate(2deg);}
+  .candid-card .fill{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;}
+  .candid-card:nth-child(1) .fill{background:linear-gradient(160deg, var(--pink-soft), var(--bg-sunken)); color:var(--pink);}
+  .candid-card:nth-child(2) .fill{background:linear-gradient(160deg, var(--accent-soft), var(--bg-sunken)); color:var(--accent);}
+  .candid-card:nth-child(3) .fill{background:linear-gradient(160deg, var(--accent-soft), var(--pink-soft)); color:var(--text);}
+  .candid-card svg{width:30%; opacity:.85;}
+  .candid-card .fill img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .caption-tag{ margin-top:14px; display:inline-block; font-family:var(--font-mono); font-size:11.5px; font-weight:600;
+    background:var(--bg-elevated); border:1px solid var(--border); padding:6px 12px; border-radius:999px; color:var(--text-muted); }
+  .candid-item:nth-child(1) .caption-tag{transform:rotate(-2deg);}
+  .candid-item:nth-child(2) .caption-tag{transform:rotate(2deg);}
+  .candid-item:nth-child(3) .caption-tag{transform:rotate(-1.5deg);}
+
+  /* ---------- section shell ---------- */
+  .section{padding:90px 0;}
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; gap:24px; margin-bottom:44px; flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(26px, 3.4vw, 40px); font-weight:800;}
+  .section-head p{color:var(--text-muted); max-width:46ch; font-size:15px;}
+  .reveal{opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  /* ---------- thesis ---------- */
+  #thesis{padding:20px 0 80px;}
+  #thesis blockquote{ font-family:var(--font-display); font-weight:600; font-size:clamp(24px, 3.6vw, 42px);
+    line-height:1.28; max-width:22ch; letter-spacing:-0.01em; }
+  #thesis mark{ background:var(--accent-fill); color:var(--accent-ink); padding:0 6px; border-radius:4px;
+    background-size:0% 100%; background-repeat:no-repeat; }
+  #thesis blockquote.in mark{ animation:highlight .5s ease forwards .3s; }
+  @keyframes highlight{ to{background-size:100% 100%;} }
+  #thesis .attrib{margin-top:22px; font-family:var(--font-mono); font-size:12.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.05em;}
+
+  /* ---------- bento pillars ---------- */
+  .bento{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;}
+  @media (max-width:900px){ .bento{grid-template-columns:1fr;} }
+  .pillar{ border-radius:var(--radius-m); padding:30px; display:flex; flex-direction:column; gap:14px; min-height:290px;
+    transition:transform .2s ease, box-shadow .2s ease; box-shadow:var(--shadow); border:1px solid var(--border); }
+  .pillar:hover{transform:translateY(-6px) rotate(-.6deg); box-shadow:0 24px 50px -20px rgba(0,0,0,.3);}
+  .pillar.card-neutral{background:var(--bg-elevated);}
+  .pillar.card-pink{background:var(--bg-elevated); color:var(--text); border-color:var(--border); border-left:3px solid var(--pink-fill);}
+  .pillar.card-amber{background:var(--bg-elevated); color:var(--text); border-color:var(--border); border-left:3px solid var(--accent-fill);}
+  .pillar .tag{ font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; }
+  .pillar.card-neutral .tag{color:var(--pink);}
+  .pillar.card-pink .tag{color:var(--pink);}
+  .pillar.card-amber .tag{color:var(--accent);}
+  .pillar h3{font-size:22px; font-weight:800; margin-top:2px;}
+  .pillar p{font-size:14.5px; line-height:1.6; flex:1;}
+  .pillar.card-neutral p, .pillar.card-pink p, .pillar.card-amber p{color:var(--text-muted);}
+  .pillar .tags{display:flex; flex-wrap:wrap; gap:7px; margin-top:auto;}
+  .pillar .tags span{ font-family:var(--font-mono); font-size:11px; padding:4px 10px; border-radius:999px; border:1px solid currentColor; opacity:.75;
+    cursor:default; transition:background-color .18s ease, opacity .18s ease; }
+  .pillar .tags span:hover{ opacity:1; }
+  .pillar.card-neutral .tags span:hover{ background:var(--pink-soft); }
+  .pillar.card-pink .tags span:hover{ background:var(--pink-soft); }
+  .pillar.card-amber .tags span:hover{ background:var(--accent-soft); }
+  .pillar .link{ font-size:13.5px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
+  .pillar .link svg{width:13px; height:13px; transition:transform .18s ease;}
+  .pillar .link:hover svg{transform:translate(3px,-3px);}
+
+  /* ---------- research interests ---------- */
+  .interest-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;}
+  @media (max-width:900px){ .interest-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:600px){ .interest-grid{grid-template-columns:1fr;} }
+  .interest-card{ background:var(--bg-elevated); border:1px solid var(--border); border-radius:var(--radius-m);
+    padding:26px; box-shadow:var(--shadow); transition:transform .2s ease, box-shadow .2s ease; }
+  .interest-card:hover{transform:translateY(-5px); box-shadow:0 24px 50px -20px rgba(0,0,0,.5);}
+  .interest-card .num{ font-family:var(--font-mono); font-size:12px; color:var(--accent); letter-spacing:.08em; }
+  .interest-card h3{ font-size:17px; font-weight:700; margin-top:10px; margin-bottom:8px; }
+  .interest-card p{ font-size:14px; color:var(--text-muted); line-height:1.6; }
+  .interest-card p em{ color:var(--text); font-style:normal; }
+  .interest-card.interest-cta{ background:var(--bg-sunken); display:flex; flex-direction:column; justify-content:center;
+    gap:14px; border-style:dashed; }
+  .interest-card.interest-cta p{ color:var(--text); font-weight:600; font-size:15px; }
+
+  /* ---------- shared chip ---------- */
+  .tag-chip{ font-family:var(--font-mono); font-size:11px; padding:6px 12px; border-radius:999px;
+    border:1px solid var(--border); background:var(--bg-elevated); color:var(--text-muted); display:inline-block;
+    cursor:default; transition:background .18s ease, border-color .18s ease, color .18s ease, transform .15s ease; }
+  .tag-chip:hover{ background:var(--accent-soft); border-color:var(--accent-fill); color:var(--accent); transform:translateY(-2px); }
+
+  /* ---------- experience ---------- */
+  .exp-list{display:flex; flex-direction:column;}
+  .exp-item{ display:grid; grid-template-columns:150px 1fr; gap:24px; padding:30px 0; border-top:1px solid var(--border); }
+  .exp-item:last-child{border-bottom:1px solid var(--border);}
+  @media (max-width:700px){ .exp-item{grid-template-columns:1fr; gap:8px;} }
+  .exp-when{ font-family:var(--font-mono); font-size:12.5px; color:var(--text-faint); padding-top:3px; }
+  .exp-body h3{ font-size:18px; font-weight:700; font-family:var(--font-body); }
+  .exp-body .exp-co{ font-weight:400; color:var(--text-muted); font-size:15px; }
+  .exp-body ul{ margin-top:12px; padding-left:18px; display:flex; flex-direction:column; gap:6px; }
+  .exp-body li{ font-size:14.5px; color:var(--text-muted); line-height:1.55; }
+  .exp-body li::marker{ color:var(--pink); }
+  .brand-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .brand-row .tag-chip{ border-color:var(--pink-fill); color:var(--pink); }
+  .brand-row .tag-chip:hover{ background:var(--pink-soft); border-color:var(--pink-fill); color:var(--pink); transform:translateY(-2px); }
+
+  /* ---------- skills ---------- */
+  .skill-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; }
+  @media (max-width:900px){ .skill-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:600px){ .skill-grid{grid-template-columns:1fr;} }
+  .skill-card{ background:var(--bg-elevated); border:1px solid var(--border); border-radius:var(--radius-m); padding:24px; }
+  .skill-card h3{ font-size:15px; font-weight:700; margin-bottom:14px; }
+  .skill-card .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+
+  /* ---------- education ---------- */
+  .edu-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:700px){ .edu-grid{grid-template-columns:1fr;} }
+  .edu-card{ background:var(--bg-elevated); border:1px solid var(--border); border-radius:var(--radius-m);
+    padding:28px; box-shadow:var(--shadow); }
+  .edu-card .edu-badge{ background:var(--accent-fill); color:var(--accent-ink); border-color:transparent; font-weight:700; }
+  .edu-card h3{ font-size:22px; font-weight:800; margin-top:14px; }
+  .edu-card .edu-school{ color:var(--text-muted); font-size:14.5px; margin-top:6px; }
+  .edu-card .edu-meta{ display:flex; justify-content:space-between; gap:12px; margin-top:18px; padding-top:16px;
+    border-top:1px solid var(--border); font-family:var(--font-mono); font-size:12px; color:var(--text-faint); flex-wrap:wrap; }
+  .cert-row{ margin-top:36px; }
+  .cert-row .tags{ display:flex; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- publications ---------- */
+  .pub-list{display:flex; flex-direction:column;}
+  .pub{ display:grid; grid-template-columns:130px 1fr auto; gap:22px; align-items:start; padding:26px 0; border-top:1px solid var(--border); }
+  .pub:last-child{border-bottom:1px solid var(--border);}
+  @media (max-width:700px){ .pub{grid-template-columns:1fr; gap:8px;} }
+  .pub .venue{font-family:var(--font-mono); font-size:12px; color:var(--text-faint); padding-top:3px;}
+  .pub h3{font-size:18px; font-weight:700; line-height:1.4; font-family:var(--font-body);}
+  .pub p{color:var(--text-muted); font-size:14px; margin-top:6px; max-width:60ch;}
+  .pub .role{ font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--pink);
+    border:1px solid var(--pink-soft); background:var(--pink-soft); padding:3px 8px; border-radius:6px; display:inline-block; margin-bottom:8px; }
+  .pub .doi{ font-family:var(--font-mono); font-size:12.5px; color:var(--text-muted); text-decoration:none; display:flex; align-items:center; gap:5px; white-space:nowrap; padding-top:4px; }
+  .pub .doi:hover{color:var(--text);}
+
+  /* ---------- AI project detail trigger + modal ---------- */
+  .pub-view{ margin-top:10px; font-family:var(--font-body); font-size:13.5px; font-weight:700; color:var(--accent);
+    display:inline-flex; align-items:center; gap:6px; background:none; border:none; padding:0; cursor:pointer;
+    font:inherit; }
+  .pub-view svg{width:13px; height:13px; transition:transform .18s ease;}
+  .pub-view:hover svg{transform:translate(3px,-3px);}
+  .proj-role{ font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--pink);
+    border:1px solid var(--pink-soft); background:var(--pink-soft); padding:3px 8px; border-radius:6px; display:inline-block; align-self:flex-start; }
+
+  .modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.72); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    display:flex; align-items:center; justify-content:center; padding:24px; z-index:100;
+    opacity:0; pointer-events:none; transition:opacity .25s ease; }
+  .modal-overlay.open{ opacity:1; pointer-events:auto; }
+  .modal-box{ background:var(--bg-elevated); border:1px solid var(--border); border-radius:var(--radius-l);
+    max-width:720px; width:100%; max-height:88vh; overflow-y:auto; box-shadow:var(--shadow); position:relative;
+    transform:translateY(16px) scale(.98); transition:transform .25s ease; }
+  .modal-overlay.open .modal-box{ transform:translateY(0) scale(1); }
+  .modal-close{ position:absolute; top:16px; right:16px; z-index:2; width:34px; height:34px; border-radius:50%;
+    background:rgba(0,0,0,.55); color:#fff; border:none; cursor:pointer; font-size:18px; line-height:1;
+    display:flex; align-items:center; justify-content:center; }
+  .modal-media{ position:relative; aspect-ratio:16/9; background:#F4F3F0; overflow:hidden; }
+  .modal-media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; padding:14px; }
+  .modal-media .ph-icon{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  .modal-media .ph-icon svg{ width:20%; opacity:.35; color:var(--bg); }
+  .modal-content{ padding:30px 32px 34px; }
+  .modal-content .proj-role{ margin-bottom:12px; }
+  .modal-content h2{ font-size:clamp(20px, 3vw, 26px); font-weight:800; line-height:1.3; }
+  .modal-content .proj-venue{ display:block; font-family:var(--font-mono); font-size:12px; color:var(--text-faint); margin-top:8px; }
+  .modal-content .m-block{ margin-top:22px; }
+  .modal-content .m-block h4{ font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:10px; }
+  .modal-content .m-block ul{ padding-left:18px; display:flex; flex-direction:column; gap:6px; }
+  .modal-content .m-block li{ font-size:14.5px; color:var(--text-muted); line-height:1.6; }
+  .modal-content .m-block li::marker{ color:var(--pink); }
+  .modal-content .m-tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .modal-content .doi{ margin-top:24px; display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono);
+    font-size:13px; color:var(--text); text-decoration:none; border-bottom:1px solid var(--border); padding-bottom:2px; }
+  .modal-content .doi:hover{ color:var(--accent); border-color:var(--accent); }
+
+  /* ---------- stack marquee 2 ---------- */
+  #stack{padding:54px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden;}
+  .marquee-track2{display:flex; gap:48px; width:max-content; animation:scroll 32s linear infinite;}
+  .marquee-track2 span{ font-family:var(--font-mono); font-size:15px; color:var(--text-faint); white-space:nowrap; display:flex; align-items:center; gap:48px; }
+  .marquee-track2 span b{color:var(--text); font-weight:700;}
+  .marquee-track2:hover{animation-play-state:paused;}
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid; grid-template-columns:1fr 1.3fr; gap:56px; align-items:start;}
+  @media (max-width:860px){ .about-grid{grid-template-columns:1fr;} }
+  .bio-card{ background:var(--bg-elevated); border:1px solid var(--border); border-radius:var(--radius-l); padding:30px;
+    box-shadow:var(--shadow); transform:rotate(-1deg); }
+  .bio-card .eyebrow{margin-bottom:16px;}
+  .about-copy p{color:var(--text-muted); font-size:16px; max-width:58ch; margin-bottom:16px;}
+  .about-copy p strong{color:var(--text); font-weight:700;}
+  .timeline{margin-top:24px; display:flex; flex-direction:column;}
+  .t-row{display:grid; grid-template-columns:120px 1fr; gap:18px; padding:14px 0; border-top:1px solid var(--border); font-size:14px;}
+  .t-row:last-child{border-bottom:1px solid var(--border);}
+  .t-row .yr{font-family:var(--font-mono); color:var(--text-faint); font-size:12.5px; padding-top:2px;}
+  .t-row .what b{font-weight:700;}
+  .t-row .what span{display:block; color:var(--text-muted); font-size:13px; margin-top:2px;}
+
+  /* ---------- contact ---------- */
+  #contact{padding:100px 0 60px;}
+  #contact h2{font-size:clamp(30px, 5.4vw, 56px); font-weight:800; max-width:16ch;}
+  .contact-row{display:flex; gap:16px; margin-top:34px; flex-wrap:wrap;}
+  .wiggle{animation:wiggle 3.2s ease-in-out infinite;}
+  @keyframes wiggle{ 0%,100%{transform:rotate(0deg);} 5%{transform:rotate(-3deg);} 10%{transform:rotate(3deg);} 15%{transform:rotate(0deg);} }
+  footer{border-top:1px solid var(--border); padding:26px 0;}
+  footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
+  footer p{font-family:var(--font-mono); font-size:12px; color:var(--text-faint);}
+  footer .flinks{display:flex; gap:18px;}
+  footer .flinks a{font-size:12px; color:var(--text-faint); text-decoration:none;}
+  footer .flinks a:hover{color:var(--text);}
+</style>
+
+<nav class="site">
+  <div class="wrap">
+    <a class="logo" href="#hero">HM<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#publications">AI Publications</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Let's talk ✦</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="blob" style="width:360px; height:360px; background:var(--pink-fill); top:-120px; left:-100px; animation:float1 12s ease-in-out infinite;"></div>
+  <div class="blob" style="width:300px; height:300px; background:var(--accent-fill); bottom:-100px; right:-80px; animation:float2 14s ease-in-out infinite;"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-head">
+      <p class="eyebrow">👋 Hey, I'm Hamza</p>
+      <h1 class="headline">AI Researcher<br>GEO <em>Analyst</em></h1>
+      <p class="hero-sub"><b>AI Research:</b> Making AI models efficient and generalizable for complex tasks. <b>Generative Information Retrieval:</b> figuring out how ChatGPT and Google's AI decide what to cite. Based in Seoul.</p>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="#pillars">See my work</a>
+        <a class="btn btn-ghost" href="#contact">Say hi</a>
+      </div>
+      <div class="chip-row">
+        <span class="chip">Seoul, KR</span>
+        <span class="chip">MS in Computer Engineering</span>
+        <span class="chip">Open to work</span>
+      </div>
+    </div>
+
+    <div class="photo-cluster" id="tiltCluster">
+      <div class="pcard p3"><div class="fill"><img src="Images/Image_3.jpeg" alt="Hamza Ghulam Nabi"><span>PHOTO 3</span></div></div>
+      <div class="pcard p2"><div class="fill"><img src="Images/Image_2.jpeg" alt="Hamza Ghulam Nabi"><span>PHOTO 2</span></div></div>
+      <div class="pcard p1">
+        <div class="fill"><img src="Images/Image_1.jpeg" alt="Hamza Ghulam Nabi"><span>MAIN PHOTO</span></div>
+        <div class="scan">
+          <div class="corner c1"></div><div class="corner c2"></div><div class="corner c3"></div><div class="corner c4"></div>
+          <div class="line"></div>
+          <div class="tag">ANALYZING · 98%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="thesis">
+  <div class="wrap">
+    <blockquote class="reveal">What does a model decide is <mark>worth noticing?</mark> I've spent the last few years answering that in a lab and in production.</blockquote>
+    <p class="attrib">— on the thread between vision research and generative search</p>
+  </div>
+</section>
+
+<section class="section" id="pillars" style="padding-top:20px;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Three ways I show up</h2>
+      <p>A research thread, an industry practice, and the tools that connect them.</p>
+    </div>
+    <div class="bento">
+      <div class="pillar card-neutral reveal">
+        <span class="tag">AI Research</span>
+        <h3>Vision &amp; Attention</h3>
+        <p>Peer-reviewed work on efficient, attention-based architectures for dynamic facial expression recognition — models that learn where to look, and how to look there with less compute. Built at the <a href="https://sites.google.com/view/hcir" target="_blank" rel="noopener" style="color:var(--pink); text-decoration:underline;">HCIR Lab</a>, <a href="https://en.seoultech.ac.kr/" target="_blank" rel="noopener" style="color:var(--pink); text-decoration:underline;">Seoul National University of Science &amp; Technology</a>.</p>
+        <div class="tags"><span>PyTorch</span><span>Computer Vision</span><span>Classification</span><span>Attention Mechanism</span><span>Knowledge Distillation</span></div>
+        <a class="link" href="#publications" style="color:var(--text);">Read the papers <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="pillar card-pink reveal">
+        <span class="tag">GEO &amp; Generative AI Search</span>
+        <h3>What Gets Cited</h3>
+        <p>GEO lead at <a href="https://www.assemblyglobal.com/" target="_blank" rel="noopener" style="color:var(--pink); text-decoration:underline;">Assembly</a>, Seoul — technical SEO and generative-engine visibility for LG D2C and SK Shieldus, plus GEO proposals for Moncler, Thom Browne, MetLife, and Gentle Monster. Schema architecture, citation tracking, answer-engine strategy.</p>
+        <div class="tags"><span>Structure Data</span><span>AI Readability</span><span>LLM Protocols</span><span>Citation Tracking</span><span>AEO</span></div>
+        <a class="link" href="#experience" style="color:var(--pink);">Full experience <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="pillar card-amber reveal">
+        <span class="tag">Projects &amp; Tools</span>
+        <h3>Built, Not Just Used</h3>
+        <p>A growing set of tools for GEO/SEO workflows: an AI-citation tracker, a CSR/SSR rendering checker, an LLM-powered keyword clustering engine, and a Query Fan-Out analyzer.</p>
+        <div class="tags"><span>Claude Code</span><span>Python</span><span>Agentic AI</span><span>Model Context Protocol</span><span>LLMs Skills & Connectors</span></div>
+        <a class="link" href="https://github.com/realhamzamalik2" target="_blank" rel="noopener" style="color:var(--accent);">See it on GitHub <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="research">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Research interests</h2>
+      <p>Where the vision-research thread is headed next — and the applied testbed I've been running it through in production.</p>
+    </div>
+    <div class="interest-grid">
+      <div class="interest-card reveal">
+        <span class="num">01</span>
+        <h3>Efficient AI Modeling</h3>
+        <p>Building models that do more with less: fewer parameters, less compute, without giving up accuracy.</p>
+      </div>
+      <div class="interest-card reveal">
+        <span class="num">02</span>
+        <h3>Vision-Language &amp; Multimodal Learning</h3>
+        <p>Bridging what a model sees with what it reads or retrieves, across modalities.</p>
+      </div>
+      <div class="interest-card reveal">
+        <span class="num">03</span>
+        <h3>Generative Information Retrieval</h3>
+        <p>How large language models retrieve, rank, and cite information, and what that reveals about attention and relevance at production scale.</p>
+      </div>
+      <div class="interest-card reveal">
+        <span class="num">04</span>
+        <h3>Model Interpretability</h3>
+        <p>Understanding <em>why</em> a model notices what it notices, not just pushing benchmark accuracy up.</p>
+      </div>
+      <div class="interest-card reveal">
+        <span class="num">05</span>
+        <h3>Affective Computing</h3>
+        <p>How models perceive and interpret human state and behavior, and what that requires beyond standard visual recognition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="publications" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>AI Publications</h2>
+      <p>Peer-reviewed research on efficient, attention-based architectures — click any paper for the project breakdown.</p>
+    </div>
+    <div class="pub-list">
+      <div class="pub reveal">
+        <div class="venue">Electronics<br>(MDPI) · 2026</div>
+        <div>
+          <span class="role">First author</span>
+          <h3>ATSLA: Attention-driven Temporal-Spatial Learning Architecture for Dynamic Facial Expression Recognition</h3>
+          <p>Feature fusion, temporal transformers, and self-reference regularization for video-based expression recognition.</p>
+          <button type="button" class="pub-view" data-project="atsla">View project details <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <a class="doi" href="https://doi.org/10.3390/electronics15163555" target="_blank" rel="noopener">DOI ↗</a>
+      </div>
+      <div class="pub reveal">
+        <div class="venue">Electronics<br>(MDPI) · 2025</div>
+        <div>
+          <span class="role">Co-author</span>
+          <h3>FRU-Adapter: Frame Recalibration Unit Adapter for Dynamic Facial Expression Recognition</h3>
+          <p>Parameter-efficient adapters for expression recognition, tuned on a small fraction of full model parameters.</p>
+          <button type="button" class="pub-view" data-project="fru">View project details <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <a class="doi" href="https://doi.org/10.3390/electronics14050978" target="_blank" rel="noopener">DOI ↗</a>
+      </div>
+      <div class="pub reveal">
+        <div class="venue">ICCAS · 2024</div>
+        <div>
+          <span class="role">Co-author</span>
+          <h3>ZenNet-SA: An Efficient Lightweight Neural Network with Shuffle Attention for Facial Expression Recognition</h3>
+          <p>Neural architecture search and shuffle attention for a lightweight, low-FLOP recognition backbone.</p>
+          <button type="button" class="pub-view" data-project="zennet">View project details <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <a class="doi" href="https://doi.org/10.23919/ICCAS63016.2024.10773246" target="_blank" rel="noopener">DOI ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="projModal">
+  <div class="modal-box">
+    <button type="button" class="modal-close" id="projModalClose" aria-label="Close">✕</button>
+    <div class="modal-media" id="projModalMedia">
+      <img id="projModalImg" src="" alt="" onerror="this.style.display='none'">
+      <div class="ph-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    </div>
+    <div class="modal-content">
+      <span class="proj-role" id="projModalRole"></span>
+      <h2 id="projModalTitle"></h2>
+      <span class="proj-venue" id="projModalVenue"></span>
+
+      <div class="m-block">
+        <h4>Project overview</h4>
+        <ul id="projModalOverview"></ul>
+      </div>
+      <div class="m-block">
+        <h4>Technical implementation</h4>
+        <ul id="projModalTech"></ul>
+      </div>
+      <div class="m-block">
+        <h4>Key achievements</h4>
+        <ul id="projModalAchievements"></ul>
+      </div>
+      <a class="doi" id="projModalDoi" href="#" target="_blank" rel="noopener">View publication ↗</a>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Experience</h2>
+      <p>From technical SEO in Pakistan to GEO strategy for global brands, by way of a robotics &amp; vision lab in Seoul.</p>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-item reveal">
+        <div class="exp-when">May 2025 — Present</div>
+        <div class="exp-body">
+          <h3>Senior SEO Analyst <span class="exp-co">· <a href="https://www.assemblyglobal.com/" target="_blank" rel="noopener" style="color:var(--pink); text-decoration:underline;">Assembly</a>, Seoul</span></h3>
+          <ul>
+            <li>Ran technical SEO for the LG D2C project — schema markup, redirect strategy (301/302/404), on-page fundamentals, and resolving Bazaarvoice review-schema conflicts and CSR/SSR rendering issues.</li>
+            <li>Optimized PDP/PLP pages for GEO — improving how AI search engines surface and cite LG product content.</li>
+            <li>Team GEO lead — owns all new GEO initiatives; built prompt-tracking workflows to measure AI-engine citation of brand content.</li>
+            <li>Built internal tools: an AIO data scraper, a CSR/SSR checker, and a Query Fan-Out (QFO) checker.</li>
+          </ul>
+          <div class="brand-row">
+            <span class="tag-chip">LG D2C</span><span class="tag-chip">SK Shieldus</span><span class="tag-chip">Moncler</span><span class="tag-chip">Thom Browne</span><span class="tag-chip">MetLife</span><span class="tag-chip">Gentle Monster</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-when">Feb 2023 — Mar 2025</div>
+        <div class="exp-body">
+          <h3>AI Researcher <span class="exp-co">· <a href="https://sites.google.com/view/hcir" target="_blank" rel="noopener" style="color:var(--pink); text-decoration:underline;">HCIR Lab</a>, <a href="https://en.seoultech.ac.kr/" target="_blank" rel="noopener" style="color:var(--pink); text-decoration:underline;">Seoul National University of Science &amp; Technology</a></span></h3>
+          <ul>
+            <li>Developed ATSLA-DFER — 79.62% WAR / 69.48% UAR on DFEW via feature fusion, temporal transformers, and self-reference regularization (first author, Electronics/MDPI, 2026).</li>
+            <li>Co-developed ZenNet-SA (97% fewer FLOPs, 91% fewer parameters) and FRU-Adapter (2% of full training parameters) via NAS, shuffle attention, and parameter-efficient adapters.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-when">Mar 2024 — Feb 2025</div>
+        <div class="exp-body">
+          <h3>Academic Assistant <span class="exp-co">· <a href="https://en.seoultech.ac.kr/" target="_blank" rel="noopener" style="color:var(--pink); text-decoration:underline;">Seoul National University of Science &amp; Technology</a></span></h3>
+          <ul>
+            <li>Supported 2 undergraduate courses (C++, Java) — weekly hands-on labs for 50+ students per semester, plus grading and structured feedback.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-when">Dec 2021 — Jan 2023</div>
+        <div class="exp-body">
+          <h3>Product Manager <span class="exp-co">· Ask SEO, Faisalabad</span></h3>
+          <ul>
+            <li>Led a team of SEO professionals across on-page and off-page strategy; achieved top Google rankings for main target keywords.</li>
+            <li>Managed SEO for Audioenhancer.ai, Parafrasear.org, and Plagiarismchecker.ai.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-when">Sep 2020 — Oct 2021</div>
+        <div class="exp-body">
+          <h3>Search Engine Optimization Expert <span class="exp-co">· Enzipe, Faisalabad</span></h3>
+          <ul>
+            <li>+40% average organic traffic across client sites via technical audits and fixes to architecture, schema, and page speed.</li>
+            <li>+50% keyword rankings via search-intent-driven content strategy.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-when">2019 — 2020</div>
+        <div class="exp-body">
+          <h3>Web &amp; Mobile Developer <span class="exp-co">· Skills Byte Software House, Faisalabad</span></h3>
+          <ul>
+            <li>Built SEO-optimized, responsive, mobile-first websites; applied semantic HTML and site-speed practices for crawlability.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Skills &amp; tools</h2>
+      <p>The overlap between AI engineering and technical SEO/GEO — and everything on either side of it.</p>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-card reveal">
+        <h3>AI / ML research</h3>
+        <div class="tags"><span class="tag-chip">PyTorch</span><span class="tag-chip">TensorFlow</span><span class="tag-chip">Temporal Transformers</span><span class="tag-chip">Neural Architecture Search</span><span class="tag-chip">Shuffle Attention</span><span class="tag-chip">Parameter-Efficient Adapters</span><span class="tag-chip">OpenCV</span><span class="tag-chip">Image Processing</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>AI tools &amp; agentic workflows</h3>
+        <div class="tags"><span class="tag-chip">ChatGPT</span><span class="tag-chip">Claude</span><span class="tag-chip">Perplexity</span><span class="tag-chip">Gemini</span><span class="tag-chip">Claude Code</span><span class="tag-chip">Claude Cowork</span><span class="tag-chip">LLM Skills, MCP and Connectors</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>GEO / AI search</h3>
+        <div class="tags"><span class="tag-chip">Citation Optimization</span><span class="tag-chip">AEO</span><span class="tag-chip">Entity Optimization</span><span class="tag-chip">AI Readability</span><span class="tag-chip">Prompt Tracking</span><span class="tag-chip">llms.txt</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>Programming &amp; data</h3>
+        <div class="tags"><span class="tag-chip">Python (Pandas, NumPy, SciPy)</span><span class="tag-chip">C++</span><span class="tag-chip">Java (Android)</span><span class="tag-chip">SQL</span><span class="tag-chip">Statistical Analysis</span><span class="tag-chip">HTML/CSS/JS (Bootstrap)</span><span class="tag-chip">XML</span><span class="tag-chip">WordPress</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>Research &amp; dev tools</h3>
+        <div class="tags"><span class="tag-chip">Git</span><span class="tag-chip">GitHub</span><span class="tag-chip">LaTeX (Academic Writing)</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>Technical SEO</h3>
+        <div class="tags"><span class="tag-chip">Site Audits</span><span class="tag-chip">Schema Markup</span><span class="tag-chip">Redirects</span><span class="tag-chip">CSR/SSR Rendering</span><span class="tag-chip">Page Speed</span><span class="tag-chip">XML Sitemaps</span><span class="tag-chip">robots.txt</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>SEO &amp; GEO tools</h3>
+        <div class="tags"><span class="tag-chip">GA4</span><span class="tag-chip">Search Console</span><span class="tag-chip">Ahrefs</span><span class="tag-chip">SEMrush</span><span class="tag-chip">Screaming Frog</span><span class="tag-chip">Looker Studio</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap" style="overflow:hidden;">
+    <div class="marquee-track2">
+      <span><b>Python</b> · PyTorch · TensorFlow · <b>Schema Markup</b> · GA4 · Search Console · Screaming Frog · Ahrefs · Semrush · <b>Claude</b> · Gemini · SQL · Looker Studio ·</span>
+      <span><b>Python</b> · PyTorch · TensorFlow · <b>Schema Markup</b> · GA4 · Search Console · Screaming Frog · Ahrefs · Semrush · <b>Claude</b> · Gemini · SQL · Looker Studio ·</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="education">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Education &amp; Credentials</h2>
+      <p>Formal training on both sides of the split — engineering research and applied computing.</p>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <span class="tag-chip edu-badge">MS</span>
+        <h3>Computer Engineering</h3>
+        <p class="edu-school"><a href="https://en.seoultech.ac.kr/" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;">Seoul National University of Science &amp; Technology</a>, South Korea</p>
+        <div class="edu-meta"><span>Feb 2023 — Feb 2025</span><span>CGPA 4.06 / 4.5</span></div>
+      </div>
+      <div class="edu-card reveal">
+        <span class="tag-chip edu-badge">BS</span>
+        <h3>Computer Science</h3>
+        <p class="edu-school"><a href="https://gcuf.edu.pk/" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;">Government College University</a>, Faisalabad, Pakistan</p>
+        <div class="edu-meta"><span>Sep 2016 — Nov 2020</span><span>CGPA 3.75 / 4.00</span></div>
+      </div>
+    </div>
+    <div class="cert-row reveal">
+      <p class="eyebrow" style="margin-bottom:14px;">certifications</p>
+      <div class="tags">
+        <span class="tag-chip">Diploma in IT Essentials — CISCO</span>
+        <span class="tag-chip">Diploma in Mobile App Development — S.M.I.T</span>
+        <span class="tag-chip">Blockchain Specialization — DICE Analytics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap about-grid">
+    <div class="bio-card reveal">
+      <p class="eyebrow" style="margin-bottom:0;">quick facts</p>
+      <div class="timeline" style="margin-top:20px;">
+        <div class="t-row" style="grid-template-columns:1fr;"><div class="what"><b>Based in</b><span>Seoul, South Korea</span></div></div>
+        <div class="t-row" style="grid-template-columns:1fr; border-bottom:1px solid var(--border);"><div class="what"><b>Languages</b><span>English (professional)</span><span>Korean (KIIP Level 2, in progress)</span></div></div>
+      </div>
+    </div>
+    <div class="about-copy reveal">
+      <p class="eyebrow" style="margin-bottom:18px;">About</p>
+      <p><strong>I'm Hamza</strong> — an AI Researcher and Generative Engine Optimization (GEO) Specialist based in seoul. I spend half my time making sure generative engines understand and cite targeted websites content correctly, and the other half asking the same question of vision models in a research lab.</p>
+      <p>After finishing my Bachelor's in Computer Science in Pakistan, my path started in web development, building and optimizing sites for clients. That's where I got interested in the technical side of search: schema, site architecture, and how search engines actually crawl and rank a page. I moved deeper into SEO from there, eventually leading teams and client strategy, before coming to Seoul for a Master's in Computer Engineering to get closer to the AI systems underneath it all, where I joined the HCIR Lab to study AI/ML algorithms, how to build effiecient architectures and how models represent what they see. </p>
+      <p>Now I sit at the overlap: applying that model-level intuition to how AI search actually works, at Assembly Seoul, while continuing the research thread through published work.</p>
+      <p>Full career and academic history lives in <a href="#experience" style="color:var(--pink); text-decoration:underline;">Experience</a> and <a href="#education" style="color:var(--pink); text-decoration:underline;">Education</a> above — this is just the throughline.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <p class="eyebrow" style="margin-bottom:18px;">Get in touch</p>
+    <h2>Let's talk research,<br>GEO, or both.</h2>
+    <p class="hero-sub">Open to AI/research roles, GEO &amp; technical SEO roles, and select client work. Based in Seoul, happy to work async or in English.</p>
+    <div class="contact-row">
+      <a class="btn btn-solid wiggle" href="mailto:realhamzamalik@gmail.com">Email me →</a>
+      <a class="btn btn-ghost" href="https://linkedin.com/in/realhamzamalik" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-ghost" href="https://github.com/realhamzamalik2" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<section id="candid">
+  <div class="wrap">
+    <div class="candid-grid">
+      <div class="candid-item reveal">
+        <div class="candid-card"><div class="fill"><img src="Images/Scene_Image1.jpeg" alt="Cheonggyecheon stream at night, Seoul" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" stroke="currentColor" stroke-width="1.6"/></svg></div></div>
+        <span class="caption-tag">cheonggyecheon ✦ nights</span>
+      </div>
+      <div class="candid-item reveal">
+        <div class="candid-card"><div class="fill"><img src="Images/Scene_Image2.jpeg" alt="Seoul skyline and rooftops" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" stroke="currentColor" stroke-width="1.6"/></svg></div></div>
+        <span class="caption-tag">seoul skyline</span>
+      </div>
+      <div class="candid-item reveal">
+        <div class="candid-card"><div class="fill"><img src="Images/Scene_Image3.jpeg" alt="Autumn street scene at dusk, Seoul" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" stroke="currentColor" stroke-width="1.6"/></svg></div></div>
+        <span class="caption-tag">autumn walks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Hamza Malik (Hamza Ghulam Nabi) · Seoul, South Korea</p>
+    <div class="flinks">
+      <a href="mailto:realhamzamalik@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/realhamzamalik" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/realhamzamalik2" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Always start at the top on load/refresh — don't restore old scroll position
+  // or auto-jump to a URL hash (e.g. a reload while on #experience).
+  if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+  if (location.hash) { history.replaceState(null, '', location.pathname + location.search); }
+  window.scrollTo(0, 0);
+  window.addEventListener('load', () => window.scrollTo(0, 0));
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.14});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cluster = document.getElementById('tiltCluster');
+
+  if(cluster){
+    const cards = Array.from(cluster.querySelectorAll('.pcard'));
+    const scan = cluster.querySelector('.scan');
+    const labels = { p1:'MAIN PHOTO', p2:'PHOTO 2', p3:'PHOTO 3' };
+    const slotOf = (card) => ['p1','p2','p3'].find(s => card.classList.contains(s));
+
+    // Move a card into a slot: swaps its position class, its label,
+    // and (if it's becoming the main card) the scan overlay.
+    const setSlot = (card, slot) => {
+      card.classList.remove('p1','p2','p3');
+      card.classList.add(slot);
+      card.style.transform = ''; // drop any inline tilt transform so the slot's CSS transform takes over
+      const label = card.querySelector('.fill span');
+      if(label) label.textContent = labels[slot];
+      if(slot === 'p1') card.appendChild(scan);
+    };
+
+    cards.forEach(card=>{
+      card.addEventListener('click', ()=>{
+        const clickedSlot = slotOf(card);
+        if(clickedSlot === 'p1') return; // already the main card
+        const mainCard = cards.find(c => slotOf(c) === 'p1');
+        setSlot(mainCard, clickedSlot); // old main takes the clicked card's spot
+        setSlot(card, 'p1');            // clicked card becomes main
+      });
+    });
+  }
+
+  // ---------- AI project detail modal ----------
+  const PROJECTS = {
+    atsla: {
+      role: 'First author',
+      title: 'ATSLA: Attention-driven Temporal-Spatial Learning Architecture for Dynamic Facial Expression Recognition',
+      venue: 'Electronics (MDPI) · 2026',
+      image: 'Images/ATSLA-DFER.png',
+      doi: 'https://doi.org/10.3390/electronics15163555',
+      overview: [
+        'Dual-stream architecture combining global facial features (IR50) with local facial features (MobileFaceNet) for dynamic facial expression recognition (DFER).',
+        'Introduced GLAM (global-local attention module), CAFF (cross-adaptive feature fusion via patch embedding + multi-head self-attention), a temporal convolutional transformer (TCT), and a temporal self-reference regularization (TSRR) loss to jointly model spatial and temporal dynamics.',
+        'Published as first author in Electronics (MDPI), 2026.'
+      ],
+      tech: [
+        'Framework: PyTorch',
+        'Backbones: IR50 (global) + MobileFaceNet (local), pre-trained on MS-Celeb',
+        'Fusion: GLAM attention + CAFF (patch embedding, MHSA, focused feature attention)',
+        'Temporal modeling: Temporal Convolutional Transformer (TCT) + TSRR loss'
+      ],
+      achievements: [
+        'State-of-the-art on DFEW: 79.62% WAR / 69.48% UAR',
+        'State-of-the-art on FERV39k: 55.87% WAR / 44.89% UAR',
+        'Competitive on MAFW: 56.24% WAR / 43.10% UAR',
+        '25.12 ms/clip inference latency on an NVIDIA RTX A6000'
+      ]
+    },
+    zennet: {
+      role: 'Research team member',
+      title: 'ZenNet-SA: An Efficient Lightweight Neural Network with Shuffle Attention for Facial Expression Recognition',
+      venue: 'ICCAS · 2024',
+      image: 'Images/Zen-Net.png',
+      doi: 'https://doi.org/10.23919/ICCAS63016.2024.10773246',
+      overview: [
+        'Lightweight network combining a high-performance backbone (auto-generated via Zen-NAS) with a feature-distillation part that fuses a shuffle attention (SA) branch and an Identity branch after the backbone.',
+        'Co-author; presented at ICCAS 2024.',
+        'Focused on model optimization and performance validation across FER benchmarks.'
+      ],
+      tech: [
+        'Backbone search: Zen-NAS (zero-shot NAS) generating ZenNet-R / ZenNet-M backbones',
+        'Attention: shuffle attention (SA) applied as post-backbone distillation, not per-superblock',
+        'Under 1M parameters, ~450M FLOPs',
+        'Framework: PyTorch'
+      ],
+      achievements: [
+        'State-of-the-art in the lightweight-model group: RAF-DB 88.53%, AffectNet-7cls 65.23%, AffectNet-8cls 61.32%',
+        '97% fewer FLOPs and 91% fewer parameters than POSTER V2'
+      ]
+    },
+    fru: {
+      role: 'Research collaborator',
+      title: 'FRU-Adapter: Frame Recalibration Unit Adapter for Dynamic Facial Expression Recognition',
+      venue: 'Electronics (MDPI) · 2025',
+      image: 'Images/FRU-Adapter.png',
+      doi: 'https://doi.org/10.3390/electronics14050978',
+      overview: [
+        'Adapter that recalibrates video frames — emphasizing important frames and suppressing irrelevant ones — before applying temporal self-attention (T-SA) to capture dependencies between the meaningful frames.',
+        'Attached in parallel to each ViT encoder layer (rather than as a residual in front of it) to avoid distorting the pre-trained spatial features.',
+        'Co-author; contributed to the manuscript. Published in Electronics (MDPI), 2025.'
+      ],
+      tech: [
+        'Backbone: ViT-L/16 pre-trained on face images (FMAE), kept frozen',
+        'FRU-Adapter: frame recalibration unit (FRU) + temporal self-attention (T-SA), attached in parallel per encoder layer',
+        'Only LayerNorm, CLS token, FRU-Adapter, and classifier are trainable',
+        'Framework: PyTorch'
+      ],
+      achievements: [
+        'Outperforms prior state-of-the-art (S2D) on DFEW and MAFW using only 9.1M tunable parameters — ~2% of total model parameters per task',
+        'DFEW: 66.02% UAR / 76.96% WAR · MAFW: 42.80% UAR / 57.83% WAR'
+      ]
+    }
+  };
+
+  const projModal = document.getElementById('projModal');
+  if(projModal){
+    const els = {
+      role: document.getElementById('projModalRole'),
+      title: document.getElementById('projModalTitle'),
+      venue: document.getElementById('projModalVenue'),
+      overview: document.getElementById('projModalOverview'),
+      tech: document.getElementById('projModalTech'),
+      achievements: document.getElementById('projModalAchievements'),
+      doi: document.getElementById('projModalDoi'),
+      img: document.getElementById('projModalImg'),
+      media: document.getElementById('projModalMedia')
+    };
+    const fillList = (ul, items) => { ul.innerHTML = items.map(i => `<li>${i}</li>`).join(''); };
+
+    const openProject = (id) => {
+      const p = PROJECTS[id];
+      if(!p) return;
+      els.role.textContent = p.role;
+      els.title.textContent = p.title;
+      els.venue.textContent = p.venue;
+      fillList(els.overview, p.overview);
+      fillList(els.tech, p.tech);
+      fillList(els.achievements, p.achievements);
+      els.img.style.display = '';
+      els.img.src = p.image;
+      els.img.alt = p.title;
+      if(p.doi){ els.doi.href = p.doi; els.doi.style.display = ''; }
+      else { els.doi.style.display = 'none'; }
+      projModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    };
+    const closeProject = () => {
+      projModal.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    document.querySelectorAll('[data-project]').forEach(btn=>{
+      btn.addEventListener('click', ()=> openProject(btn.dataset.project));
+    });
+    document.getElementById('projModalClose').addEventListener('click', closeProject);
+    projModal.addEventListener('click', (e)=>{ if(e.target === projModal) closeProject(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && projModal.classList.contains('open')) closeProject(); });
+  }
+</script>
