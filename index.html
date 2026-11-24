@@ -1,5 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hamza Malik</title>
+<meta name="description" content="Hamza Malik (Hamza Ghulam Nabi): AI researcher and GEO specialist in Seoul. Peer-reviewed work on efficient attention-based vision models, plus generative engine optimization for global brands.">
+<link rel="canonical" href="https://realhamzamalik.com/">
 <link rel="icon" type="image/png" href="Images/favicon.png">
+<meta name="theme-color" content="#0A0A0D">
+
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Hamza Malik | AI Researcher & GEO Specialist">
+<meta property="og:description" content="Efficient, attention-based vision models in the lab. How ChatGPT and Google's AI decide what to cite, in production. Based in Seoul.">
+<meta property="og:url" content="https://realhamzamalik.com/">
+<meta property="og:image" content="https://realhamzamalik.com/Images/Image_1.jpeg">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Hamza Malik",
+  "alternateName": "Hamza Ghulam Nabi",
+  "url": "https://realhamzamalik.com/",
+  "image": "https://realhamzamalik.com/Images/Image_1.jpeg",
+  "jobTitle": "AI Researcher and GEO Specialist",
+  "address": { "@type": "PostalAddress", "addressLocality": "Seoul", "addressCountry": "KR" },
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "Seoul National University of Science and Technology", "url": "https://en.seoultech.ac.kr/" },
+    { "@type": "CollegeOrUniversity", "name": "Government College University Faisalabad", "url": "https://gcuf.edu.pk/" }
+  ],
+  "knowsAbout": ["Computer Vision", "Dynamic Facial Expression Recognition", "Attention Mechanisms", "Efficient Deep Learning", "Generative Engine Optimization", "Technical SEO", "Answer Engine Optimization"],
+  "sameAs": [
+    "https://linkedin.com/in/realhamzamalik",
+    "https://github.com/realhamzamalik2",
+    "https://scholar.google.com/citations?user=GUVaYn4AAAAJ"
+  ]
+}
+</script>
+
+<script>
+  // Apply the saved theme before first paint so the page doesn't flash.
+  (function(){
+    try{
+      var t = localStorage.getItem('theme');
+      if(t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    }catch(e){}
+  })();
+</script>
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400..700&display=swap');
@@ -47,12 +95,22 @@
     --pink:#E280A3; --pink-fill:#D9678F; --pink-ink:#2B0B16; --pink-soft:rgba(217,103,143,.14);
     --shadow: 0 1px 2px rgba(0,0,0,.6), 0 24px 54px -20px rgba(0,0,0,.85);
   }
+  :root[data-theme="light"]{
+    --bg:#F6F4EF; --bg-elevated:#FFFFFF; --bg-sunken:#ECE9E2;
+    --text:#15131A; --text-muted:#55515C; --text-faint:#85818C;
+    --border:#E0DCD3;
+    --accent:#5A7410; --accent-fill:#B9D94C; --accent-ink:#14210A; --accent-soft:rgba(185,217,76,.24);
+    --pink:#B23C67; --pink-fill:#D9678F; --pink-ink:#2B0B16; --pink-soft:rgba(217,103,143,.14);
+    --shadow: 0 1px 2px rgba(20,18,26,.06), 0 18px 40px -22px rgba(20,18,26,.28);
+  }
+  :root[data-theme="light"] .blob{opacity:.28;}
 
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
     background:var(--bg); color:var(--text); font-family:var(--font-body);
     font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    transition:background-color .3s ease, color .3s ease;
   }
   img,svg{display:block; max-width:100%;}
   a{color:inherit;}
@@ -88,6 +146,15 @@
     transition:transform .18s ease; display:inline-block; }
   .nav-cta:hover{transform:rotate(-2deg) scale(1.04);}
   @media (max-width:780px){ .nav-links{display:none;} }
+  .nav-right{display:flex; align-items:center; gap:12px;}
+  .theme-toggle{ width:40px; height:40px; border-radius:50%; border:1px solid var(--border); background:var(--bg-elevated);
+    color:var(--text); cursor:pointer; display:inline-flex; align-items:center; justify-content:center;
+    transition:transform .25s ease, background .18s ease, border-color .18s ease; }
+  .theme-toggle:hover{ transform:rotate(-15deg) scale(1.06); border-color:var(--accent-fill); }
+  .theme-toggle svg{ width:18px; height:18px; }
+  .theme-toggle .i-sun{ display:none; }
+  :root[data-theme="light"] .theme-toggle .i-sun{ display:block; }
+  :root[data-theme="light"] .theme-toggle .i-moon{ display:none; }
 
   /* ---------- hero ---------- */
   #hero{position:relative; padding:70px 0 60px; overflow:hidden;}
@@ -266,11 +333,20 @@
   .brand-row .tag-chip:hover{ background:var(--pink-soft); border-color:var(--pink-fill); color:var(--pink); transform:translateY(-2px); }
 
   /* ---------- skills ---------- */
-  .skill-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; }
-  @media (max-width:900px){ .skill-grid{grid-template-columns:1fr 1fr;} }
-  @media (max-width:600px){ .skill-grid{grid-template-columns:1fr;} }
-  .skill-card{ background:var(--bg-elevated); border:1px solid var(--border); border-radius:var(--radius-m); padding:24px; }
-  .skill-card h3{ font-size:15px; font-weight:700; margin-bottom:14px; }
+  .skill-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; align-items:start; }
+  @media (max-width:900px){ .skill-grid{grid-template-columns:1fr;} }
+  .skill-card{ background:var(--bg-elevated); border:1px solid var(--border); border-radius:var(--radius-m); padding:28px;
+    box-shadow:var(--shadow); border-top:3px solid var(--border); }
+  .skill-card.sk-accent{ border-top-color:var(--accent-fill); }
+  .skill-card.sk-pink{ border-top-color:var(--pink-fill); }
+  .skill-card.sk-neutral{ border-top-color:var(--text-faint); }
+  .skill-card h3{ font-size:20px; font-weight:800; margin-bottom:4px; }
+  .skill-card .sk-sub{ font-size:13.5px; color:var(--text-muted); margin-bottom:20px; }
+  .skill-group + .skill-group{ margin-top:18px; padding-top:18px; border-top:1px dashed var(--border); }
+  .skill-group h4{ font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+    font-weight:700; margin-bottom:10px; color:var(--text-faint); }
+  .sk-accent .skill-group h4{ color:var(--accent); }
+  .sk-pink .skill-group h4{ color:var(--pink); }
   .skill-card .tags{ display:flex; flex-wrap:wrap; gap:8px; }
 
   /* ---------- education ---------- */
@@ -373,6 +449,8 @@
   footer .flinks a{font-size:12px; color:var(--text-faint); text-decoration:none;}
   footer .flinks a:hover{color:var(--text);}
 </style>
+</head>
+<body>
 
 <nav class="site">
   <div class="wrap">
@@ -385,7 +463,13 @@
       <li><a href="#education">Education</a></li>
       <li><a href="#about">About</a></li>
     </ul>
-    <a class="nav-cta" href="#contact">Let's talk ✦</a>
+    <div class="nav-right">
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to light mode" title="Toggle light / dark mode">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none"><path d="M20.5 14.5A8.5 8.5 0 019.5 3.5a8.5 8.5 0 1011 11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <a class="nav-cta" href="#contact">Let's talk ✦</a>
+    </div>
   </div>
 </nav>
 
@@ -447,15 +531,15 @@
       <div class="pillar card-pink reveal">
         <span class="tag">GEO &amp; Generative AI Search</span>
         <h3>What Gets Cited</h3>
-        <p>GEO lead at <a href="https://www.assemblyglobal.com/" target="_blank" rel="noopener" style="color:var(--pink); text-decoration:underline;">Assembly</a>, Seoul — technical SEO and generative-engine visibility for LG D2C and SK Shieldus, plus GEO proposals for Moncler, Thom Browne, MetLife, and Gentle Monster. Schema architecture, citation tracking, answer-engine strategy.</p>
-        <div class="tags"><span>Structure Data</span><span>AI Readability</span><span>LLM Protocols</span><span>Citation Tracking</span><span>AEO</span></div>
+        <p>Former GEO lead at <a href="https://www.assemblyglobal.com/" target="_blank" rel="noopener" style="color:var(--pink); text-decoration:underline;">Assembly</a>, Seoul (2025 to 2026) — technical SEO and generative-engine visibility for LG D2C and SK Shieldus, plus GEO proposals for Moncler, Thom Browne, MetLife, and Gentle Monster. Schema architecture, citation tracking, answer-engine strategy.</p>
+        <div class="tags"><span>Structured Data</span><span>AI Readability</span><span>LLM Protocols</span><span>Citation Tracking</span><span>AEO</span></div>
         <a class="link" href="#experience" style="color:var(--pink);">Full experience <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
       <div class="pillar card-amber reveal">
         <span class="tag">Projects &amp; Tools</span>
         <h3>Built, Not Just Used</h3>
         <p>A growing set of tools for GEO/SEO workflows: an AI-citation tracker, a CSR/SSR rendering checker, an LLM-powered keyword clustering engine, and a Query Fan-Out analyzer.</p>
-        <div class="tags"><span>Claude Code</span><span>Python</span><span>Agentic AI</span><span>Model Context Protocol</span><span>LLMs Skills & Connectors</span></div>
+        <div class="tags"><span>Claude Code</span><span>Python</span><span>Agentic AI</span><span>Model Context Protocol</span><span>LLMs Skills &amp; Connectors</span></div>
         <a class="link" href="https://github.com/realhamzamalik2" target="_blank" rel="noopener" style="color:var(--accent);">See it on GitHub <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
@@ -578,17 +662,17 @@
     <div class="exp-list">
 
       <div class="exp-item reveal">
-        <div class="exp-when">May 2025 — Present</div>
+        <div class="exp-when">May 2025 — Sep 2026</div>
         <div class="exp-body">
           <h3>Senior GEO Analyst <span class="exp-co">· <a href="https://www.assemblyglobal.com/" target="_blank" rel="noopener" style="color:var(--pink); text-decoration:underline;">Assembly</a>, Seoul</span></h3>
           <ul>
             <li>Ran technical SEO/GEO for the LG D2C project — schema markup, redirect strategy (301/302/404), on-page fundamentals, and resolving Bazaarvoice review-schema conflicts and CSR/SSR rendering issues.</li>
             <li>Optimized PDP/PLP pages for GEO — improving how AI search engines surface and cite LG product content.</li>
-            <li>Team GEO lead — owns all new GEO initiatives; built prompt-tracking workflows to measure AI-engine citation of brand content.</li>
+            <li>Team GEO lead — owned all new GEO initiatives; built prompt-tracking workflows to measure AI-engine citation of brand content.</li>
             <li>Built internal tools: an AIO data scraper, a CSR/SSR checker, and a Query Fan-Out (QFO) checker.</li>
           </ul>
           <div class="brand-row">
-            <span class="tag-chip">LG D2C</span><span class="tag-chip">SK Shieldus</span><span class="tag-chip">LG Electronics Koea</span><span class="tag-chip">Proposals: Thom Browne, Gentle Monster, Moncler, MetLife</span>
+            <span class="tag-chip">LG D2C</span><span class="tag-chip">SK Shieldus</span><span class="tag-chip">LG Electronics Korea</span><span class="tag-chip">Proposals: Thom Browne, Gentle Monster, Moncler, MetLife</span>
           </div>
         </div>
       </div>
@@ -657,33 +741,49 @@
       <p>The overlap between AI engineering and technical SEO/GEO — and everything on either side of it.</p>
     </div>
     <div class="skill-grid">
-      <div class="skill-card reveal">
-        <h3>AI / ML research</h3>
-        <div class="tags"><span class="tag-chip">PyTorch</span><span class="tag-chip">TensorFlow</span><span class="tag-chip">Temporal Transformers</span><span class="tag-chip">Neural Architecture Search</span><span class="tag-chip">Shuffle Attention</span><span class="tag-chip">Parameter-Efficient Adapters</span><span class="tag-chip">OpenCV</span><span class="tag-chip">Image Processing</span></div>
+      <div class="skill-card sk-accent reveal">
+        <h3>AI &amp; ML engineering</h3>
+        <p class="sk-sub">Research, modeling, and the code behind it.</p>
+        <div class="skill-group">
+          <h4>Research &amp; modeling</h4>
+          <div class="tags"><span class="tag-chip">PyTorch</span><span class="tag-chip">TensorFlow</span><span class="tag-chip">Temporal Transformers</span><span class="tag-chip">Neural Architecture Search</span><span class="tag-chip">Shuffle Attention</span><span class="tag-chip">Parameter-Efficient Adapters</span><span class="tag-chip">OpenCV</span><span class="tag-chip">Image Processing</span></div>
+        </div>
+        <div class="skill-group">
+          <h4>Programming &amp; data</h4>
+          <div class="tags"><span class="tag-chip">Python (Pandas, NumPy, SciPy)</span><span class="tag-chip">C++</span><span class="tag-chip">Java (Android)</span><span class="tag-chip">SQL</span><span class="tag-chip">Statistical Analysis</span><span class="tag-chip">HTML/CSS/JS (Bootstrap)</span><span class="tag-chip">XML</span><span class="tag-chip">WordPress</span></div>
+        </div>
       </div>
-      <div class="skill-card reveal">
-        <h3>AI tools &amp; agentic workflows</h3>
-        <div class="tags"><span class="tag-chip">ChatGPT</span><span class="tag-chip">Claude</span><span class="tag-chip">Perplexity</span><span class="tag-chip">Gemini</span><span class="tag-chip">Claude Code</span><span class="tag-chip">Claude Cowork</span><span class="tag-chip">LLM Skills, MCP and Connectors</span></div>
+      <div class="skill-card sk-pink reveal">
+        <h3>GEO &amp; technical SEO</h3>
+        <p class="sk-sub">Getting content found, read, and cited by search and AI engines.</p>
+        <div class="skill-group">
+          <h4>GEO / AI search</h4>
+          <div class="tags"><span class="tag-chip">Citation Optimization</span><span class="tag-chip">AEO</span><span class="tag-chip">Entity Optimization</span><span class="tag-chip">AI Readability</span><span class="tag-chip">Prompt Tracking</span><span class="tag-chip">llms.txt</span></div>
+        </div>
+        <div class="skill-group">
+          <h4>Technical SEO</h4>
+          <div class="tags"><span class="tag-chip">Site Audits</span><span class="tag-chip">Schema Markup</span><span class="tag-chip">Redirects</span><span class="tag-chip">CSR/SSR Rendering</span><span class="tag-chip">Page Speed</span><span class="tag-chip">XML Sitemaps</span><span class="tag-chip">robots.txt</span></div>
+        </div>
+        <div class="skill-group">
+          <h4>SEO &amp; GEO tools</h4>
+          <div class="tags"><span class="tag-chip">GA4</span><span class="tag-chip">Search Console</span><span class="tag-chip">Ahrefs</span><span class="tag-chip">SEMrush</span><span class="tag-chip">Screaming Frog</span><span class="tag-chip">Looker Studio</span></div>
+        </div>
       </div>
-      <div class="skill-card reveal">
-        <h3>GEO / AI search</h3>
-        <div class="tags"><span class="tag-chip">Citation Optimization</span><span class="tag-chip">AEO</span><span class="tag-chip">Entity Optimization</span><span class="tag-chip">AI Readability</span><span class="tag-chip">Prompt Tracking</span><span class="tag-chip">llms.txt</span></div>
-      </div>
-      <div class="skill-card reveal">
-        <h3>Programming &amp; data</h3>
-        <div class="tags"><span class="tag-chip">Python (Pandas, NumPy, SciPy)</span><span class="tag-chip">C++</span><span class="tag-chip">Java (Android)</span><span class="tag-chip">SQL</span><span class="tag-chip">Statistical Analysis</span><span class="tag-chip">HTML/CSS/JS (Bootstrap)</span><span class="tag-chip">XML</span><span class="tag-chip">WordPress</span></div>
-      </div>
-      <div class="skill-card reveal">
-        <h3>Research &amp; dev tools</h3>
-        <div class="tags"><span class="tag-chip">Git</span><span class="tag-chip">GitHub</span><span class="tag-chip">LaTeX (Academic Writing)</span></div>
-      </div>
-      <div class="skill-card reveal">
-        <h3>Technical SEO</h3>
-        <div class="tags"><span class="tag-chip">Site Audits</span><span class="tag-chip">Schema Markup</span><span class="tag-chip">Redirects</span><span class="tag-chip">CSR/SSR Rendering</span><span class="tag-chip">Page Speed</span><span class="tag-chip">XML Sitemaps</span><span class="tag-chip">robots.txt</span></div>
-      </div>
-      <div class="skill-card reveal">
-        <h3>SEO &amp; GEO tools</h3>
-        <div class="tags"><span class="tag-chip">GA4</span><span class="tag-chip">Search Console</span><span class="tag-chip">Ahrefs</span><span class="tag-chip">SEMrush</span><span class="tag-chip">Screaming Frog</span><span class="tag-chip">Looker Studio</span></div>
+      <div class="skill-card sk-neutral reveal">
+        <h3>AI tools &amp; workflow</h3>
+        <p class="sk-sub">The assistants, agents, and dev tools I build with every day.</p>
+        <div class="skill-group">
+          <h4>AI assistants</h4>
+          <div class="tags"><span class="tag-chip">ChatGPT</span><span class="tag-chip">Claude</span><span class="tag-chip">Perplexity</span><span class="tag-chip">Gemini</span></div>
+        </div>
+        <div class="skill-group">
+          <h4>Agentic workflows</h4>
+          <div class="tags"><span class="tag-chip">Claude Code</span><span class="tag-chip">Claude Cowork</span><span class="tag-chip">LLM Skills, MCP and Connectors</span></div>
+        </div>
+        <div class="skill-group">
+          <h4>Research &amp; dev tools</h4>
+          <div class="tags"><span class="tag-chip">Git</span><span class="tag-chip">GitHub</span><span class="tag-chip">LaTeX (Academic Writing)</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -692,8 +792,8 @@
 <section id="stack">
   <div class="wrap" style="overflow:hidden;">
     <div class="marquee-track2">
-      <span><b>Python</b> · PyTorch · TensorFlow · <b>Schema Markup</b> · GA4 · Search Console · Screaming Frog · Ahrefs · Semrush · <b>Claude</b> · Gemini · SQL · Looker Studio ·</span>
-      <span><b>Python</b> · PyTorch · TensorFlow · <b>Schema Markup</b> · GA4 · Search Console · Screaming Frog · Ahrefs · Semrush · <b>Claude</b> · Gemini · SQL · Looker Studio ·</span>
+      <span><b>Python</b> · PyTorch · TensorFlow · <b>Schema Markup</b> · GA4 · Search Console · Screaming Frog · Ahrefs · SEMrush · <b>Claude</b> · Gemini · SQL · Looker Studio ·</span>
+      <span><b>Python</b> · PyTorch · TensorFlow · <b>Schema Markup</b> · GA4 · Search Console · Screaming Frog · Ahrefs · SEMrush · <b>Claude</b> · Gemini · SQL · Looker Studio ·</span>
     </div>
   </div>
 </section>
@@ -740,9 +840,9 @@
     </div>
     <div class="about-copy reveal">
       <p class="eyebrow" style="margin-bottom:18px;">About</p>
-      <p><strong>I'm Hamza</strong> — an AI Researcher and Generative Engine Optimization (GEO) Specialist based in seoul. I spend half my time making sure generative engines understand and cite targeted websites content correctly, and the other half asking the same question of vision models in a research lab.</p>
-      <p>After finishing my Bachelor's in Computer Science in Pakistan, my path started in web development, building and optimizing sites for clients. That's where I got interested in the technical side of search: schema, site architecture, and how search engines actually crawl and rank a page. I moved deeper into SEO from there, eventually leading teams and client strategy, before coming to Seoul for a Master's in Computer Engineering to get closer to the AI systems underneath it all, where I joined the HCIR Lab to study AI/ML algorithms, how to build effiecient architectures and how models represent what they see. </p>
-      <p>Now I sit at the overlap: applying that model-level intuition to how AI search actually works, at Assembly Seoul, while continuing the research thread through published work.</p>
+      <p><strong>I'm Hamza</strong> — an AI Researcher and Generative Engine Optimization (GEO) Specialist based in Seoul. I spend half my time making sure generative engines understand and cite targeted websites content correctly, and the other half asking the same question of vision models in a research lab.</p>
+      <p>After finishing my Bachelor's in Computer Science in Pakistan, my path started in web development, building and optimizing sites for clients. That's where I got interested in the technical side of search: schema, site architecture, and how search engines actually crawl and rank a page. I moved deeper into SEO from there, eventually leading teams and client strategy, before coming to Seoul for a Master's in Computer Engineering to get closer to the AI systems underneath it all, where I joined the HCIR Lab to study AI/ML algorithms, how to build efficient architectures and how models represent what they see. </p>
+      <p>Now I sit at the overlap: most recently as Senior GEO Analyst at Assembly Seoul (2025 to 2026), I applied that model-level intuition to how AI search actually works, and I continue the research thread through published work.</p>
       <p>Full career and academic history lives in <a href="#experience" style="color:var(--pink); text-decoration:underline;">Experience</a> and <a href="#education" style="color:var(--pink); text-decoration:underline;">Education</a> above — this is just the throughline.</p>
     </div>
   </div>
@@ -864,7 +964,7 @@
       ]
     },
     zennet: {
-      role: 'Research team member',
+      role: 'Co-author',
       title: 'ZenNet-SA: An Efficient Lightweight Neural Network with Shuffle Attention for Facial Expression Recognition',
       venue: 'ICCAS · 2024',
       image: 'Images/Zen-Net.png',
@@ -886,7 +986,7 @@
       ]
     },
     fru: {
-      role: 'Research collaborator',
+      role: 'Co-author',
       title: 'FRU-Adapter: Frame Recalibration Unit Adapter for Dynamic Facial Expression Recognition',
       venue: 'Electronics (MDPI) · 2025',
       image: 'Images/FRU-Adapter.png',
@@ -953,4 +1053,24 @@
     projModal.addEventListener('click', (e)=>{ if(e.target === projModal) closeProject(); });
     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && projModal.classList.contains('open')) closeProject(); });
   }
+
+  // ---------- light / dark toggle ----------
+  const themeBtn = document.getElementById('themeToggle');
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  const currentTheme = () => document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  const applyTheme = (t) => {
+    document.documentElement.setAttribute('data-theme', t);
+    if(themeMeta) themeMeta.setAttribute('content', t === 'light' ? '#F6F4EF' : '#0A0A0D');
+    if(themeBtn) themeBtn.setAttribute('aria-label', t === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+  };
+  applyTheme(currentTheme());
+  if(themeBtn){
+    themeBtn.addEventListener('click', ()=>{
+      const next = currentTheme() === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+      try{ localStorage.setItem('theme', next); }catch(e){}
+    });
+  }
 </script>
+</body>
+</html>
