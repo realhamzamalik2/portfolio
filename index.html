@@ -40,12 +40,15 @@
 </script>
 
 <script>
-  // Apply the saved theme before first paint so the page doesn't flash.
+  // Theme before first paint (no flash): the visitor's saved choice wins,
+  // otherwise follow their system setting, otherwise dark.
   (function(){
-    try{
-      var t = localStorage.getItem('theme');
-      if(t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
-    }catch(e){}
+    var t = null;
+    try{ t = localStorage.getItem('theme'); }catch(e){}
+    if(t !== 'light' && t !== 'dark'){
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-theme', t);
   })();
 </script>
 
@@ -701,7 +704,7 @@
       <div class="exp-item reveal">
         <div class="exp-when">Dec 2021 — Jan 2023</div>
         <div class="exp-body">
-          <h3>Product Manager <span class="exp-co">· Ask SEO, Faisalabad</span></h3>
+          <h3>Product Manager <span class="exp-co">· <a href="https://askseo.me/" target="_blank" rel="nofollow noopener" style="color:var(--pink); text-decoration:underline;">Ask SEO</a>, Faisalabad</span></h3>
           <ul>
             <li>Led a team of SEO professionals across on-page and off-page strategy; achieved top Google rankings for main target keywords.</li>
             <li>Managed SEO for Audioenhancer.ai, Parafrasear.org, and Plagiarismchecker.ai.</li>
@@ -1065,6 +1068,12 @@
     if(themeBtn) themeBtn.setAttribute('aria-label', t === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
   };
   applyTheme(currentTheme());
+  // If the visitor never clicked the toggle, follow live changes to their system setting.
+  const sysLight = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+  const hasSavedTheme = () => { try{ return !!localStorage.getItem('theme'); }catch(e){ return false; } };
+  if(sysLight && sysLight.addEventListener){
+    sysLight.addEventListener('change', (e)=>{ if(!hasSavedTheme()) applyTheme(e.matches ? 'light' : 'dark'); });
+  }
   if(themeBtn){
     themeBtn.addEventListener('click', ()=>{
       const next = currentTheme() === 'light' ? 'dark' : 'light';
