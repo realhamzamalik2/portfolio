@@ -362,8 +362,23 @@
   .edu-card .edu-school{ color:var(--text-muted); font-size:14.5px; margin-top:6px; }
   .edu-card .edu-meta{ display:flex; justify-content:space-between; gap:12px; margin-top:18px; padding-top:16px;
     border-top:1px solid var(--border); font-family:var(--font-mono); font-size:12px; color:var(--text-faint); flex-wrap:wrap; }
-  .cert-row{ margin-top:36px; }
-  .cert-row .tags{ display:flex; flex-wrap:wrap; gap:10px; }
+  .cert-row{ margin-top:48px; }
+  .cert-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:18px; }
+  .cert-head h3{ font-size:22px; font-weight:800; }
+  .cert-head span{ font-family:var(--font-mono); font-size:12px; color:var(--text-faint); }
+  .cert-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+  @media (max-width:900px){ .cert-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:600px){ .cert-grid{grid-template-columns:1fr;} }
+  .cert-card{ display:flex; align-items:center; gap:14px; background:var(--bg-elevated); border:1px solid var(--border);
+    border-radius:16px; padding:16px 18px; box-shadow:var(--shadow); transition:transform .2s ease, border-color .2s ease; }
+  .cert-card:hover{ transform:translateY(-3px); border-color:var(--accent-fill); }
+  .cert-card:nth-child(even):hover{ border-color:var(--pink-fill); }
+  .cert-badge{ flex:none; width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:12.5px; font-weight:800; letter-spacing:.02em;
+    background:var(--accent-soft); color:var(--accent); }
+  .cert-card:nth-child(even) .cert-badge{ background:var(--pink-soft); color:var(--pink); }
+  .cert-name{ font-size:14.5px; font-weight:700; line-height:1.35; color:var(--text); }
+  .cert-issuer{ font-family:var(--font-mono); font-size:11.5px; color:var(--text-muted); margin-top:3px; }
 
   /* ---------- publications ---------- */
   .pub-list{display:flex; flex-direction:column;}
@@ -846,14 +861,32 @@
       </div>
     </div>
     <div class="cert-row reveal">
-      <p class="eyebrow" style="margin-bottom:14px;">certifications</p>
-      <div class="tags">
-        <span class="tag-chip">CS50's Introduction to AI with Python — Harvard University</span>
-        <span class="tag-chip">Edge AI — Edge Impulse</span>
-        <span class="tag-chip">Build with AI: Codex — OpenAI Academy</span>
-        <span class="tag-chip">Apply AI at Work — OpenAI Academy</span>
-        <span class="tag-chip">Blockchain Specialization — DICE Analytics</span>
-        <span class="tag-chip">IT Essentials — Cisco Networking Academy</span>
+      <div class="cert-head"><h3>Certifications</h3><span>6 completed</span></div>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <span class="cert-badge" aria-hidden="true">CS50</span>
+          <div><div class="cert-name">CS50's Introduction to AI with Python</div><div class="cert-issuer">Harvard University</div></div>
+        </div>
+        <div class="cert-card">
+          <span class="cert-badge" aria-hidden="true">EI</span>
+          <div><div class="cert-name">Edge AI</div><div class="cert-issuer">Edge Impulse</div></div>
+        </div>
+        <div class="cert-card">
+          <span class="cert-badge" aria-hidden="true">OA</span>
+          <div><div class="cert-name">Build with AI: Codex</div><div class="cert-issuer">OpenAI Academy</div></div>
+        </div>
+        <div class="cert-card">
+          <span class="cert-badge" aria-hidden="true">OA</span>
+          <div><div class="cert-name">Apply AI at Work</div><div class="cert-issuer">OpenAI Academy</div></div>
+        </div>
+        <div class="cert-card">
+          <span class="cert-badge" aria-hidden="true">DA</span>
+          <div><div class="cert-name">Blockchain Specialization</div><div class="cert-issuer">DICE Analytics</div></div>
+        </div>
+        <div class="cert-card">
+          <span class="cert-badge" aria-hidden="true">CNA</span>
+          <div><div class="cert-name">IT Essentials</div><div class="cert-issuer">Cisco Networking Academy</div></div>
+        </div>
       </div>
     </div>
   </div>
