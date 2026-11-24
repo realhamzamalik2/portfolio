@@ -59,7 +59,7 @@
     --bg-sunken:#050406;
     --text:#F4F3F0;
     --text-muted:#AFACB2;
-    --text-faint:#6B6870;
+    --text-faint:#8A8691;
     --border:#262330;
     --accent:#B9D94C;
     --accent-fill:#B9D94C;
@@ -80,7 +80,7 @@
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
       --bg:#0A0A0D; --bg-elevated:#17151B; --bg-sunken:#050406;
-      --text:#F4F3F0; --text-muted:#AFACB2; --text-faint:#6B6870;
+      --text:#F4F3F0; --text-muted:#AFACB2; --text-faint:#8A8691;
       --border:#262330;
       --accent:#B9D94C; --accent-fill:#B9D94C; --accent-ink:#14210A; --accent-soft:rgba(185,217,76,.12);
       --pink:#E280A3; --pink-fill:#D9678F; --pink-ink:#2B0B16; --pink-soft:rgba(217,103,143,.14);
@@ -89,7 +89,7 @@
   }
   :root[data-theme="dark"]{
     --bg:#0A0A0D; --bg-elevated:#17151B; --bg-sunken:#050406;
-    --text:#F4F3F0; --text-muted:#AFACB2; --text-faint:#6B6870;
+    --text:#F4F3F0; --text-muted:#AFACB2; --text-faint:#8A8691;
     --border:#262330;
     --accent:#B9D94C; --accent-fill:#B9D94C; --accent-ink:#14210A; --accent-soft:rgba(185,217,76,.12);
     --pink:#E280A3; --pink-fill:#D9678F; --pink-ink:#2B0B16; --pink-soft:rgba(217,103,143,.14);
@@ -97,10 +97,10 @@
   }
   :root[data-theme="light"]{
     --bg:#F6F4EF; --bg-elevated:#FFFFFF; --bg-sunken:#ECE9E2;
-    --text:#15131A; --text-muted:#55515C; --text-faint:#85818C;
+    --text:#15131A; --text-muted:#55515C; --text-faint:#67636E;
     --border:#E0DCD3;
-    --accent:#5A7410; --accent-fill:#B9D94C; --accent-ink:#14210A; --accent-soft:rgba(185,217,76,.24);
-    --pink:#B23C67; --pink-fill:#D9678F; --pink-ink:#2B0B16; --pink-soft:rgba(217,103,143,.14);
+    --accent:#4F670C; --accent-fill:#B9D94C; --accent-ink:#14210A; --accent-soft:rgba(185,217,76,.24);
+    --pink:#A8355F; --pink-fill:#D9678F; --pink-ink:#2B0B16; --pink-soft:rgba(217,103,143,.14);
     --shadow: 0 1px 2px rgba(20,18,26,.06), 0 18px 40px -22px rgba(20,18,26,.28);
   }
   :root[data-theme="light"] .blob{opacity:.28;}
@@ -243,7 +243,7 @@
   .candid-card:nth-child(1) .fill{background:linear-gradient(160deg, var(--pink-soft), var(--bg-sunken)); color:var(--pink);}
   .candid-card:nth-child(2) .fill{background:linear-gradient(160deg, var(--accent-soft), var(--bg-sunken)); color:var(--accent);}
   .candid-card:nth-child(3) .fill{background:linear-gradient(160deg, var(--accent-soft), var(--pink-soft)); color:var(--text);}
-  .candid-card svg{width:30%; opacity:.85;}
+  .candid-card svg{width:30%; opacity:.85; display:none;}
   .candid-card .fill img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .caption-tag{ margin-top:14px; display:inline-block; font-family:var(--font-mono); font-size:11.5px; font-weight:600;
     background:var(--bg-elevated); border:1px solid var(--border); padding:6px 12px; border-radius:999px; color:var(--text-muted); }
@@ -397,7 +397,7 @@
     display:flex; align-items:center; justify-content:center; }
   .modal-media{ position:relative; aspect-ratio:16/9; background:#F4F3F0; overflow:hidden; }
   .modal-media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; padding:14px; }
-  .modal-media .ph-icon{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  .modal-media .ph-icon{ position:absolute; inset:0; display:none; align-items:center; justify-content:center; }
   .modal-media .ph-icon svg{ width:20%; opacity:.35; color:var(--bg); }
   .modal-content{ padding:30px 32px 34px; }
   .modal-content .proj-role{ margin-bottom:12px; }
@@ -628,7 +628,7 @@
   <div class="modal-box">
     <button type="button" class="modal-close" id="projModalClose" aria-label="Close">✕</button>
     <div class="modal-media" id="projModalMedia">
-      <img id="projModalImg" src="" alt="" onerror="this.style.display='none'">
+      <img id="projModalImg" src="" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
       <div class="ph-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" stroke="currentColor" stroke-width="1.6"/></svg></div>
     </div>
     <div class="modal-content">
@@ -866,15 +866,15 @@
   <div class="wrap">
     <div class="candid-grid">
       <div class="candid-item reveal">
-        <div class="candid-card"><div class="fill"><img src="Images/Scene_Image1.jpeg" alt="Cheonggyecheon stream at night, Seoul" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" stroke="currentColor" stroke-width="1.6"/></svg></div></div>
+        <div class="candid-card"><div class="fill"><img src="Images/Scene_Image1.jpeg" alt="Cheonggyecheon stream at night, Seoul" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" stroke="currentColor" stroke-width="1.6"/></svg></div></div>
         <span class="caption-tag">cheonggyecheon ✦ nights</span>
       </div>
       <div class="candid-item reveal">
-        <div class="candid-card"><div class="fill"><img src="Images/Scene_Image2.jpeg" alt="Seoul skyline and rooftops" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" stroke="currentColor" stroke-width="1.6"/></svg></div></div>
+        <div class="candid-card"><div class="fill"><img src="Images/Scene_Image2.jpeg" alt="Seoul skyline and rooftops" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" stroke="currentColor" stroke-width="1.6"/></svg></div></div>
         <span class="caption-tag">seoul skyline</span>
       </div>
       <div class="candid-item reveal">
-        <div class="candid-card"><div class="fill"><img src="Images/Scene_Image3.jpeg" alt="Autumn street scene at dusk, Seoul" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" stroke="currentColor" stroke-width="1.6"/></svg></div></div>
+        <div class="candid-card"><div class="fill"><img src="Images/Scene_Image3.jpeg" alt="Autumn street scene at dusk, Seoul" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" stroke="currentColor" stroke-width="1.6"/></svg></div></div>
         <span class="caption-tag">autumn walks</span>
       </div>
     </div>
@@ -1034,6 +1034,7 @@
       fillList(els.tech, p.tech);
       fillList(els.achievements, p.achievements);
       els.img.style.display = '';
+      els.media.querySelector('.ph-icon').style.display = '';
       els.img.src = p.image;
       els.img.alt = p.title;
       if(p.doi){ els.doi.href = p.doi; els.doi.style.display = ''; }
