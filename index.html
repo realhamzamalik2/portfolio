@@ -443,6 +443,30 @@
   #contact{padding:100px 0 60px;}
   #contact h2{font-size:clamp(30px, 5.4vw, 56px); font-weight:800; max-width:16ch;}
   .contact-row{display:flex; gap:16px; margin-top:34px; flex-wrap:wrap;}
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+  @media (max-width:900px){ .contact-grid{grid-template-columns:1fr; gap:36px;} }
+  .contact-form{ background:var(--bg-elevated); border:1px solid var(--border); border-radius:var(--radius-l);
+    padding:30px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:16px; }
+  .cf-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:600px){ .cf-row{grid-template-columns:1fr;} }
+  .cf-field{display:flex; flex-direction:column; gap:7px;}
+  .cf-field label{ font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    font-weight:700; color:var(--text-muted); }
+  .cf-field input, .cf-field textarea, .cf-field select{
+    font-family:var(--font-body); font-size:15px; color:var(--text); background:var(--bg); border:1.5px solid var(--border);
+    border-radius:12px; padding:12px 14px; width:100%; transition:border-color .18s ease, box-shadow .18s ease; }
+  .cf-field textarea{ min-height:140px; resize:vertical; line-height:1.55; }
+  .cf-field select{ appearance:none; -webkit-appearance:none; cursor:pointer;
+    background-image:linear-gradient(45deg, transparent 50%, var(--text-muted) 50%), linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+    background-position:calc(100% - 20px) 52%, calc(100% - 15px) 52%; background-size:5px 5px; background-repeat:no-repeat; padding-right:38px; }
+  .cf-field input::placeholder, .cf-field textarea::placeholder{ color:var(--text-faint); }
+  .cf-field input:focus, .cf-field textarea:focus, .cf-field select:focus{ outline:none; border-color:var(--accent-fill); box-shadow:0 0 0 3px var(--accent-soft); }
+  .cf-hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  .contact-form .btn{ border:none; cursor:pointer; justify-content:center; align-self:flex-start; }
+  .contact-form .btn:disabled{ opacity:.6; cursor:wait; transform:none; }
+  .cf-status{ font-size:14px; min-height:1.4em; }
+  .cf-status.ok{ color:var(--accent); font-weight:600; }
+  .cf-status.err{ color:var(--pink); font-weight:600; }
   .wiggle{animation:wiggle 3.2s ease-in-out infinite;}
   @keyframes wiggle{ 0%,100%{transform:rotate(0deg);} 5%{transform:rotate(-3deg);} 10%{transform:rotate(3deg);} 15%{transform:rotate(0deg);} }
   footer{border-top:1px solid var(--border); padding:26px 0;}
@@ -853,14 +877,47 @@
 
 <section id="contact">
   <div class="wrap">
-    <p class="eyebrow" style="margin-bottom:18px;">Get in touch</p>
-    <h2>Let's talk research,<br>GEO, or both.</h2>
-    <p class="hero-sub">Open to AI/research roles, GEO &amp; technical SEO roles, and select client work. Based in Seoul, happy to work async or in English.</p>
-    <div class="contact-row">
-      <a class="btn btn-solid wiggle" href="mailto:realhamzamalik@gmail.com">Email me →</a>
-      <a class="btn btn-ghost" href="https://linkedin.com/in/realhamzamalik" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn btn-ghost" href="https://github.com/realhamzamalik2" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn btn-ghost" href="https://scholar.google.com/citations?user=GUVaYn4AAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+    <div class="contact-grid">
+      <div>
+        <p class="eyebrow" style="margin-bottom:18px;">Get in touch</p>
+        <h2>Let's talk research,<br>GEO, or both.</h2>
+        <p class="hero-sub">Open to AI/research roles, GEO &amp; technical SEO roles, and select client work. Based in Seoul, happy to work async or in English.</p>
+        <div class="contact-row">
+          <a class="btn btn-ghost" href="https://linkedin.com/in/realhamzamalik" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-ghost" href="https://github.com/realhamzamalik2" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn-ghost" href="https://scholar.google.com/citations?user=GUVaYn4AAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="cf-hp" aria-hidden="true"><label>Leave this empty <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+        <div class="cf-row">
+          <div class="cf-field">
+            <label for="cf-name">Name</label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Your name" required maxlength="100">
+          </div>
+          <div class="cf-field">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required maxlength="150">
+          </div>
+        </div>
+        <div class="cf-field">
+          <label for="cf-topic">Topic</label>
+          <select id="cf-topic" name="topic">
+            <option>AI / research role</option>
+            <option>GEO / SEO role</option>
+            <option>Client project</option>
+            <option>Research collaboration</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="cf-field">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" placeholder="What would you like to talk about?" required maxlength="5000"></textarea>
+        </div>
+        <button type="submit" class="btn btn-solid wiggle" id="cfSubmit">Send message →</button>
+        <p class="cf-status" id="cfStatus" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </div>
 </section>
@@ -888,7 +945,7 @@
   <div class="wrap">
     <p>© 2026 Hamza Malik (Hamza Ghulam Nabi) · Seoul, South Korea</p>
     <div class="flinks">
-      <a href="mailto:realhamzamalik@gmail.com">Email</a>
+      <a href="#contact">Contact</a>
       <a href="https://linkedin.com/in/realhamzamalik" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/realhamzamalik2" target="_blank" rel="noopener">GitHub</a>
       <a href="https://scholar.google.com/citations?user=GUVaYn4AAAAJ" target="_blank" rel="noopener">Google Scholar</a>
@@ -1056,6 +1113,59 @@
     document.getElementById('projModalClose').addEventListener('click', closeProject);
     projModal.addEventListener('click', (e)=>{ if(e.target === projModal) closeProject(); });
     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && projModal.classList.contains('open')) closeProject(); });
+  }
+
+  // ---------- contact form (FormSubmit, no account needed) ----------
+  // FORM_ALIAS is the random string FormSubmit gives after the inbox is confirmed,
+  // so the real email address never appears in this page.
+  const FORM_ALIAS = 'fabc51317952bf1679e16e0fd2ac57af';
+  const form = document.getElementById('contactForm');
+  if(form){
+    const status = document.getElementById('cfStatus');
+    const submit = document.getElementById('cfSubmit');
+    const setStatus = (msg, kind) => { status.textContent = msg; status.className = 'cf-status' + (kind ? ' ' + kind : ''); };
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if(!form.checkValidity()){
+        setStatus('Please fill in your name, a valid email, and a message.', 'err');
+        form.reportValidity();
+        return;
+      }
+      if(form.elements._honey.value){ return; } // bot filled the hidden field
+      if(FORM_ALIAS === 'YOUR_FORMSUBMIT_ALIAS'){
+        setStatus('The form is not connected yet. Please reach out on LinkedIn for now.', 'err');
+        return;
+      }
+      const f = form.elements;
+      const data = {
+        name: f.name.value.trim(),
+        email: f.email.value.trim(),
+        topic: f.topic.value,
+        message: f.message.value.trim(),
+        _subject: 'Portfolio: ' + f.topic.value + ' (from ' + f.name.value.trim() + ')',
+        _replyto: f.email.value.trim(),
+        _template: 'table',
+        _captcha: 'false',
+        _honey: ''
+      };
+      submit.disabled = true; setStatus('Sending…');
+      try{
+        const res = await fetch('https://formsubmit.co/ajax/' + FORM_ALIAS, {
+          method:'POST', headers:{'Content-Type':'application/json', 'Accept':'application/json'}, body:JSON.stringify(data)
+        });
+        const out = await res.json().catch(()=>({}));
+        if(res.ok && String(out.success) === 'true'){
+          form.reset();
+          setStatus('Thanks! Your message is on its way. I usually reply within a couple of days.', 'ok');
+        } else {
+          setStatus('Something went wrong sending your message. Please try again, or reach out on LinkedIn.', 'err');
+        }
+      }catch(err){
+        setStatus('Could not send right now (network error). Please try again, or reach out on LinkedIn.', 'err');
+      }finally{
+        submit.disabled = false;
+      }
+    });
   }
 
   // ---------- light / dark toggle ----------
